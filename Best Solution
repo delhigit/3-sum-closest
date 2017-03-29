@@ -1,0 +1,33 @@
+int threeSumClosest(vector<int> &A, int target)
+{    
+    int num = A.size();
+    sort(A.begin(), A.end());
+    if(num <= 3)
+    return accumulate(A.begin(), A.end(), 0);
+    
+    int diff = INT_MAX;
+    int ans;
+    
+    for(int i = 0; i <= num - 2; i++)
+    {
+        int start = i  + 1;
+        int end = num - 1;
+        
+        while(start < end)
+        {
+            int sum = A[i] + A[start] + A[end];
+            
+            if(abs(target - sum) < diff)
+            {
+                diff = abs(target - sum);
+                ans = sum;
+                
+                if(!diff)
+                return sum;
+            }
+            
+            (sum > target)? end-- : start++;
+        }
+    }
+    return ans;
+}
